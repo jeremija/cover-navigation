@@ -171,7 +171,8 @@
         visibility: hidden;
     }
 
-    footer {
+    footer,
+    .hint {
         font-family: 'Open Sans', sans-serif;
         border-radius: 10px 10px 0 0;
         box-shadow: 0 0 5px #111;
@@ -187,8 +188,31 @@
         background-color: black;
         background-color: rgba(0, 0, 0, 0.2);
         z-index: 10;
+        transition: all ease-in 0.3;
+        -webkit-transition: all ease-in 0.3s;
+        -moz-transition: all ease-in 0.3s;
+        -ms-transition: all ease-in 0.3s;
+        -o-transition: all ease-in 0.3s;
     }
 
+    .hint {
+        color: #ccc;
+        border-radius: 10px;
+        bottom: 30%;
+        padding: 15px;
+        width: 230px;
+        margin-left: -130px;
+    }
+
+    .hint.hidden {
+        opacity: 0;
+        visibility: hidden;
+    }
+
+/*    .hint:hover {
+        opacity: 0.1;
+    }
+*/
     footer a,
     footer a:visited {
         text-decoration: none;
@@ -280,6 +304,10 @@
         <a class="snake" href="http://steinerize.com/snake">&nbsp;<div><span>Snake</span></div></a>
     </div>
 
+    <div id="hint" class="hint">
+        Tip: use mouse or arrow keys to navigate
+    </div>
+
     <footer id="footer">
         <div class="author">Jerko Steiner</div>
         <div id="info-links" class="additional-info">
@@ -299,6 +327,10 @@
             mainLinks = Array.prototype.slice.call(nav.getElementsByTagName('a')),
             footer = document.getElementById('footer'),
             footerLinks = Array.prototype.slice.call(footer.getElementsByTagName('a'));
+
+        setTimeout(function() {
+            document.getElementById('hint').className+= ' hidden';
+        }, 2000);
 
         (function() {
             nav.onmouseenter = function() {
