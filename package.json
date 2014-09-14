@@ -1,0 +1,22 @@
+{
+  "name": "links",
+  "version": "0.0.0",
+  "description": "cover-navigation ================",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/jeremija/cover-navigation.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/jeremija/cover-navigation/issues"
+  },
+  "homepage": "https://github.com/jeremija/cover-navigation",
+  "devDependencies": {
+    "html-minify": "^0.3.1"
+  }
+}
