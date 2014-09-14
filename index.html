@@ -14,7 +14,7 @@
 <meta name="twitter:card" content="gallery">
 <meta name="twitter:site" content="@JerkoSteiner">
 <meta name="twitter:creator" content="@JerkoSteiner">
-
+<link rel="shortcut icon" type="image/x-icon" href="/favicon.ico">
 <link href='http://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'>
 <script type="text/javascript">
     (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
@@ -70,6 +70,7 @@
         width: 15%;
 
         text-align: right;
+        text-decoration: none;
     }
 
     a.blog {
@@ -189,18 +190,42 @@
 </head>
 <body>
 <script>
-    var splash = document.createElement('div');
-    splash.className = 'splash';
-    document.body.appendChild(splash);
-    setTimeout(function() {
-        splash.className += ' hidden';
-    });
+    (function() {
+        var splash = document.createElement('div');
+        splash.className = 'splash';
+        document.body.appendChild(splash);
+        setTimeout(function() {
+            splash.className += ' hidden';
+        });
+    }());
 </script>
 <div class="nav">
     <a class="blog" href="http://steinerize.com/blog">&nbsp;<div><span>Blog</span></div></a>
     <a class="shell" href="http://steinerize.com/shell">&nbsp;<div><span>Shell</span></div></a>
     <a class="snake" href="http://steinerize.com/snake">&nbsp;<div><span>Snake</span></div></a>
 </div>
+<script>
+    (function() {
+        if (!document.querySelectorAll) return;
+        var links = document.querySelectorAll('.nav a');
+        for(var i = links.length - 1; i >= 0; i--) {
+            var link = links[i];
+            link.onclick = function() {
+                for(var j = links.length - 1; j >= 0; j--) {
+                    var lnk = links[j];
+                    if (lnk === this) continue;
+                    lnk.style.width = '0';
+                }
+                this.style.width = '100%';
+                var href = this.getAttribute('href');
+                setTimeout(function() {
+                    window.location.href = href;
+                }, 300);
+                return false;
+            };
+        }
+    }());
+</script>
 
 <footer>
     <a href="http://creativecommons.org/licenses/by-nc/4.0/" tabindex="-1">CC BY-NC</a> Jerko Steiner
