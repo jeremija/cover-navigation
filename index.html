@@ -115,12 +115,12 @@
         text-decoration: none;
     }
 
-    .nav a:hover,
+    .hover-enabled .nav a:hover,
     .nav a:focus {
         width: 70%;
     }
 
-    .nav a:hover div,
+    .hover-enabled .nav a:hover div,
     .nav a:focus div {
         background-color: rgba(0, 0, 0, 0);
     }
@@ -142,7 +142,7 @@
         -o-transition: all ease-in 0.3s;
     }
 
-    .nav a:hover span,
+    .hover-enabled .nav a:hover span,
     .nav a:focus span {
         color: white;
         text-shadow: 0 0 0.1em white;
@@ -200,12 +200,12 @@
     }
 
     footer a:focus:before,
-    footer a:hover:before {
+    .hover-enabled footer a:hover:before {
         content: '[ ';
     }
 
     footer a:focus:after,
-    footer a:hover:after {
+    .hover-enabled footer a:hover:after {
         content: ' ]';
     }
 
@@ -273,31 +273,39 @@
         });
     }());
 </script>
-<div id="nav" class="nav">
-    <a class="blog" href="http://steinerize.com/blog">&nbsp;<div><span>Blog</span></div></a>
-    <a class="shell" href="http://steinerize.com/shell">&nbsp;<div><span>Shell</span></div></a>
-    <a class="snake" href="http://steinerize.com/snake">&nbsp;<div><span>Snake</span></div></a>
-</div>
-
-<footer id="footer">
-    <div class="author">Jerko Steiner</div>
-    <div id="info-links" class="additional-info">
-        <a target="_blank" href="http://github.com/jeremija">GitHub</a><br>
-        <a target="_blank" href="http://linkedin.com/in/jerkosteiner">LinkedIn</a><br>
-        <a target="_blank" href="http://twitter.com/JerkoSteiner">Twitter</a><br>
-        <br>
-        <a target="_blank" href="http://creativecommons.org/licenses/by-nc/4.0/">License</a>
+<div id="content" class="hover-enabled">
+    <div id="nav" class="nav">
+        <a class="blog" href="http://steinerize.com/blog">&nbsp;<div><span>Blog</span></div></a>
+        <a class="shell" href="http://steinerize.com/shell">&nbsp;<div><span>Shell</span></div></a>
+        <a class="snake" href="http://steinerize.com/snake">&nbsp;<div><span>Snake</span></div></a>
     </div>
-</footer>
+
+    <footer id="footer">
+        <div class="author">Jerko Steiner</div>
+        <div id="info-links" class="additional-info">
+            <a target="_blank" href="http://github.com/jeremija">GitHub</a><br>
+            <a target="_blank" href="http://linkedin.com/in/jerkosteiner">LinkedIn</a><br>
+            <a target="_blank" href="http://twitter.com/JerkoSteiner">Twitter</a><br>
+            <br>
+            <a target="_blank" href="http://creativecommons.org/licenses/by-nc/4.0/">License</a>
+        </div>
+    </footer>
+</div>
 <script>
     (function() {
         window.onunload = function(){};
+        var content = document.getElementById('content');
         var nav = document.getElementById('nav'),
             mainLinks = Array.prototype.slice.call(nav.getElementsByTagName('a')),
             footer = document.getElementById('footer'),
             footerLinks = Array.prototype.slice.call(footer.getElementsByTagName('a'));
 
         (function() {
+            nav.onmouseenter = function() {
+                content.className = 'hover-enabled';
+                if (document.activeElement) document.activeElement.blur();
+            }
+
             for(var i = mainLinks.length - 1; i >= 0; i--) {
                 var link = mainLinks[i];
                 link.onclick = function() {
@@ -313,15 +321,23 @@
                     }, 300);
                     return false;
                 };
+                link.onfocus = function() {
+                    content.className = '';
+                }
+                link.onblur = function() {
+                    content.className = 'hover-enabled';
+                }
             }
 
             for(var k = footerLinks.length - 1; k >= 0; k--) {
                 var link = footerLinks[k];
                 link.onfocus = function() {
                     footer.className = 'focused';
+                    content.className = '';
                 };
                 link.onblur = function() {
                     footer.className = '';
+                    content.className = 'hover-enabled';
                 };
             }
         }());
