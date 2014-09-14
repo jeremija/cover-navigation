@@ -252,7 +252,7 @@
         margin-left: -70px;
         bottom: 0;
         background-color: black;
-        background-color: rgba(0, 0, 0, 0.2);
+        background-color: rgba(0, 0, 0, 0.5);
         z-index: 10;
         transition: all ease-in 0.3;
         -webkit-transition: all ease-in 0.3s;
@@ -262,17 +262,29 @@
     }
 
     .hint {
+        pointer-events: none;
+        font-size: 20px;
         color: #ccc;
         border-radius: 10px;
         bottom: 30%;
         padding: 15px;
-        width: 230px;
-        margin-left: -130px;
+        width: 300px;
+        margin-left: -165px;
     }
 
     .hint.hidden {
         opacity: 0;
         visibility: hidden;
+    }
+
+    .hint .key {
+        font-family: monospace;
+        background-color: white;
+        color: black;
+        border-radius: 10px;
+        width: 25px;
+        display: inline-block;
+        padding: 5px;
     }
 
 /*    .hint:hover {
@@ -285,13 +297,14 @@
         padding: 4px 0;
         text-decoration: none;
         color: #888;
+        margin: 0 1px;
     }
 
     footer a:focus,
     .hover-enabled footer a:hover {
         outline: none;
         background-color: #171717;
-        background-color: rgba(255, 255, 255, 0.04);
+        background-color: rgba(255, 255, 255, 0.07);
         text-shadow: 0 0 0.5em white;
     }
 
@@ -381,7 +394,12 @@
     </div>
 
     <div id="hint" class="hint">
-        Tip: use mouse or arrow keys to navigate
+        Use
+        <span class="key">🐭</span> or
+        <span class="key">←</span>
+        <span class="key">→</span>
+        <span class="key">↑</span>
+        <span class="key">↓</span>
     </div>
 
     <footer id="footer">
@@ -406,7 +424,7 @@
 
         setTimeout(function() {
             document.getElementById('hint').className+= ' hidden';
-        }, 2000);
+        }, 3000);
 
         (function() {
             nav.onmouseenter = function() {
