@@ -189,6 +189,26 @@
         z-index: 10;
     }
 
+    footer a,
+    footer a:visited {
+        text-decoration: none;
+        color: #888;
+    }
+
+    footer a:focus {
+        outline: none;
+    }
+
+    footer a:focus:before,
+    footer a:hover:before {
+        content: '[ ';
+    }
+
+    footer a:focus:after,
+    footer a:hover:after {
+        content: ' ]';
+    }
+
     footer .author {
         margin-top: 0.7em;
         margin-bottom: 0.7em;
@@ -216,12 +236,15 @@
         height: 0;
     }
 
-    footer:hover {
+    footer:hover,
+    footer.focused {
         box-shadow: 0 0 5px #111;
     }
 
     footer:hover .author,
-    footer:hover .additional-info a {
+    footer:hover .additional-info a,
+    footer.focused .author,
+    footer.focused a {
         transition: all ease-in 0.3;
         -webkit-transition: all ease-in 0.3s;
         -moz-transition: all ease-in 0.3s;
@@ -230,20 +253,10 @@
         color: white;
     }
 
-    footer:hover .additional-info {
+    footer:hover .additional-info,
+    footer.focused .additional-info {
         height: 100px;
         color: white;
-    }
-
-    footer a,
-    footer a:visited {
-        text-decoration: none;
-        color: #888;
-    }
-
-    footer a:hover {
-        text-decoration: underline;
-        color: #888;
     }
 
 </style>
@@ -265,8 +278,20 @@
     <a class="shell" href="http://steinerize.com/shell">&nbsp;<div><span>Shell</span></div></a>
     <a class="snake" href="http://steinerize.com/snake">&nbsp;<div><span>Snake</span></div></a>
 </div>
+
+<footer id="footer">
+    <div class="author">Jerko Steiner</div>
+    <div class="additional-info">
+        <a target="_blank" href="http://github.com/jeremija">GitHub</a><br>
+        <a target="_blank" href="http://linkedin.com/in/jerkosteiner">LinkedIn</a><br>
+        <a target="_blank" href="http://twitter.com/JerkoSteiner">Twitter</a><br>
+        <br>
+        <a target="_blank" href="http://creativecommons.org/licenses/by-nc/4.0/">License</a>
+    </div>
+</footer>
 <script>
     (function() {
+        window.onunload = function(){};
         if (!document.querySelectorAll) return;
         var links = document.querySelectorAll('.nav a');
         for(var i = links.length - 1; i >= 0; i--) {
@@ -285,20 +310,27 @@
                 return false;
             };
         }
-        window.onunload = function(){};
+
+        var footer = document.getElementById('footer');
+        var footerLinks = document.querySelectorAll('footer a');
+        for(var k = footerLinks.length - 1; k >= 0; k--) {
+            var link = footerLinks[k];
+            link.onfocus = function() {
+                footer.className = 'focused';
+            };
+            link.onblur = function() {
+                footer.className = '';
+            };
+        }
+
+        document.onkeydown = function(evt) {
+            evt = evt || window.event;
+            if (evt.keyCode === 27) {
+                if (document.activeElement) document.activeElement.blur();
+            }
+        }
     }());
 </script>
-
-<footer>
-    <div class="author">Jerko Steiner</div>
-    <div class="additional-info">
-        <a target="_blank" href="http://github.com/jeremija">GitHub</a><br>
-        <a target="_blank" href="http://linkedin.com/in/jerkosteiner">LinkedIn</a><br>
-        <a target="_blank" href="http://twitter.com/JerkoSteiner">Twitter</a><br>
-        <br>
-        <a target="_blank" href="http://creativecommons.org/licenses/by-nc/4.0/" tabindex="-1">License</a>
-    </div>
-</footer>
 
 </body>
 </html>
