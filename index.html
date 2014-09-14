@@ -110,7 +110,7 @@
         -moz-transition: background-color ease-in 0.3s;
         -ms-transition: background-color ease-in 0.3s;
         -o-transition: background-color ease-in 0.3s;
-        background-color: rgba(0, 0, 0, 0.7);
+        background-color: rgba(0, 0, 0, 0.555);
 
         text-decoration: none;
     }
@@ -172,27 +172,78 @@
     }
 
     footer {
+        font-family: 'Open Sans', sans-serif;
+        border-radius: 10px 10px 0 0;
+        box-shadow: 0 0 5px #111;
         position: fixed;
         text-align: center;
-        font-size: 9px;
-        color: white;
+        font-size: 10px;
+        color: #888;
         right: 0;
-        left: 0;
+        left: 50%;
+        width: 140px;
+        margin-left: -70px;
         bottom: 0;
-        height: 15px;
-        padding-top: 3px;
-        background-color: rgba(0, 0, 0, 0.5);
+        background-color: black;
+        background-color: rgba(0, 0, 0, 0.2);
+        z-index: 10;
+    }
+
+    footer .author {
+        margin-top: 0.7em;
+        margin-bottom: 0.7em;
+    }
+
+    footer .author:before {
+        font-size: 1.2em;
+        content: '\25be';
+        margin-right: 1em;
+    }
+
+    footer .author:after {
+        font-size: 1.2em;
+        content: '\25be';
+        margin-left: 1em;
+    }
+
+    footer .additional-info {
+        transition: all ease-in 0.3;
+        -webkit-transition: all ease-in 0.3s;
+        -moz-transition: all ease-in 0.3s;
+        -ms-transition: all ease-in 0.3s;
+        -o-transition: all ease-in 0.3s;
+        padding: 0 30px;
+        height: 0;
+    }
+
+    footer:hover {
+        box-shadow: 0 0 5px #111;
+    }
+
+    footer:hover .author,
+    footer:hover .additional-info a {
+        transition: all ease-in 0.3;
+        -webkit-transition: all ease-in 0.3s;
+        -moz-transition: all ease-in 0.3s;
+        -ms-transition: all ease-in 0.3s;
+        -o-transition: all ease-in 0.3s;
+        color: white;
+    }
+
+    footer:hover .additional-info {
+        height: 100px;
+        color: white;
     }
 
     footer a,
     footer a:visited {
         text-decoration: none;
-        color: #aaa;
+        color: #888;
     }
 
     footer a:hover {
         text-decoration: underline;
-        color: white;
+        color: #888;
     }
 
 </style>
@@ -239,7 +290,14 @@
 </script>
 
 <footer>
-    <a href="http://creativecommons.org/licenses/by-nc/4.0/" tabindex="-1">CC BY-NC</a> Jerko Steiner
+    <div class="author">Jerko Steiner</div>
+    <div class="additional-info">
+        <a target="_blank" href="http://github.com/jeremija">GitHub</a><br>
+        <a target="_blank" href="http://linkedin.com/in/jerkosteiner">LinkedIn</a><br>
+        <a target="_blank" href="http://twitter.com/JerkoSteiner">Twitter</a><br>
+        <br>
+        <a target="_blank" href="http://creativecommons.org/licenses/by-nc/4.0/" tabindex="-1">License</a>
+    </div>
 </footer>
 
 </body>
