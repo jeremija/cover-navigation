@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0,  user-scalable=no">
 <meta name="description" content="Personal website of Jerko Steiner, software developer, guitar player and amateur photographer from Zagreb">
 
-<meta property="og:title" content="Steinerize [dot] com">
+<meta property="og:title" content="Steinerize.com - Homepage of Jerko Steiner">
 <meta property="og:url" content="http://steinerize.com">
 <meta property="og:image" content="http://steinerize.com/opengraph.jpg">
 <meta property="og:description" content="Personal website of Jerko Steiner, software developer, guitar player and amateur photographer from Zagreb">
@@ -210,6 +210,13 @@
         -o-transition: all ease-in 0.3s;
     }
 
+    @media(max-width: 600px) {
+        .nav a span {
+           font-size: 28px;
+           padding-right: 0.5em;
+        }
+    }
+
     .hover-enabled .nav a:hover span,
     .nav a:focus span {
         color: white;
@@ -327,13 +334,13 @@
 
     footer .author:before {
         font-size: 1.2em;
-        content: '\25be';
+        content: '\25b4';
         margin-right: 1em;
     }
 
     footer .author:after {
         font-size: 1.2em;
-        content: '\25be';
+        content: '\25b4';
         margin-left: 1em;
     }
 
@@ -349,6 +356,13 @@
     footer:hover,
     footer.focused {
         box-shadow: 0 0 5px #111;
+    }
+
+    footer:hover .author:before,
+    footer:hover .author:after,
+    footer.focused .author:before,
+    footer.focused .author:after {
+        content: '\25be';
     }
 
     footer:hover .author,
