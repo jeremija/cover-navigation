@@ -436,6 +436,7 @@
             mainLinks = Array.prototype.slice.call(nav.getElementsByTagName('a')),
             footer = document.getElementById('footer'),
             footerLinks = Array.prototype.slice.call(footer.getElementsByTagName('a'));
+        mainLinks[0].focus();
 
         setTimeout(function() {
             document.getElementById('hint').className+= ' hidden';
