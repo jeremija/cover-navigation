@@ -1,5 +1,4 @@
 <!DOCTYPE html>
-
 <html prefix="og: http://ogp.me/ns#">
 <head>
 <title>Steinerize.com - Homepage of Jerko Steiner</title>
@@ -448,6 +447,17 @@
                 if (document.activeElement) document.activeElement.blur();
             }
 
+            function absorbEvent(event) {
+                var e = event || window.event;
+                e.preventDefault && e.preventDefault();
+                e.stopPropagation && e.stopPropagation();
+                e.cancelBubble = true;
+                e.returnValue = false
+                return false
+            }
+
+            var touchCoords, touchMoved = false;
+
             for(var i = mainLinks.length - 1; i >= 0; i--) {
                 var link = mainLinks[i];
                 link.onclick = function() {
@@ -465,10 +475,33 @@
                 };
                 link.onfocus = function() {
                     content.className = '';
-                }
+                };
                 link.onblur = function() {
                     content.className = 'hover-enabled';
-                }
+                };
+                link.ontouchstart = function(event) {
+                    this.focus();
+                    touchMoved = false;
+                    var touch = (event || window.event).touches[0];
+                    touchCoords = {x: touch.pageX, y: touch.pageY};
+                    return absorbEvent(event);
+                };
+                link.ontouchend = function(event) {
+                    if (!touchMoved) this.click();
+                    return absorbEvent(event);
+                };
+                link.ontouchmove = function(event) {
+                    var touch = (event || window.event).touches[0];
+                    if (Math.abs(touchCoords.x - touch.pageX) > 10 ||
+                        Math.abs(touchCoords.y - touch.pageY) > 10)
+                    {
+                        touchMoved = true;
+                    }
+                    return absorbEvent(event);
+                };
+                link.ontouchcancel = function(event) {
+                    return absorbEvent(event);
+                };
             }
 
             for(var k = footerLinks.length - 1; k >= 0; k--) {
