@@ -13,6 +13,7 @@ all:
 			$(SRC)/opengraph.jpg \
 			$(SRC)/shell.png \
 			$(SRC)/snake.png \
+			$(SRC)/paintings.jpg \
 			$(DIST)/
 	@$(MINIFY) -o $(DIST)/index.html $(SRC)/index.html
 
