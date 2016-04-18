@@ -254,10 +254,6 @@
         padding: 5px;
     }
 
-/*    .hint:hover {
-        opacity: 0.1;
-    }
-*/
     footer a,
     footer a:visited {
         display: block;
@@ -274,16 +270,6 @@
         background-color: rgba(255, 255, 255, 0.07);
         text-shadow: 0 0 0.5em white;
     }
-
-/*    footer a:focus:before,
-    .hover-enabled footer a:hover:before {
-        content: '[ ';
-    }
-
-    footer a:focus:after,
-    .hover-enabled footer a:hover:after {
-        content: ' ]';
-    }*/
 
     footer .author {
         margin-top: 0.7em;
@@ -371,10 +357,10 @@
 
     <div id="hint" class="hint">
         Use mouse or
-        <span class="key">←</span>
-        <span class="key">→</span>
-        <span class="key">↑</span>
-        <span class="key">↓</span>
+        <span class="key">h←</span>
+        <span class="key">j↓</span>
+        <span class="key">k↑</span>
+        <span class="key">l→</span>
     </div>
 
     <footer id="footer">
@@ -394,15 +380,23 @@
     (function() {
         window.onunload = function(){};
         var content = document.getElementById('content');
+        var slice = Array.prototype.slice;
         var nav = document.getElementById('nav'),
-            mainLinks = Array.prototype.slice.call(nav.getElementsByTagName('a')),
+            mainLinks = slice.call(nav.getElementsByTagName('a')),
             footer = document.getElementById('footer'),
-            footerLinks = Array.prototype.slice.call(footer.getElementsByTagName('a'));
+            footerLinks = slice.call(footer.getElementsByTagName('a')),
+            hint = document.getElementById('hint');
         mainLinks[0].focus();
 
-        setTimeout(function() {
-            document.getElementById('hint').className+= ' hidden';
-        }, 3000);
+        var hintTimeout;
+        function showHint() {
+            clearTimeout(hintTimeout);
+            hint.className = 'hint';
+            hintTimeout = setTimeout(function() {
+                hint.className = 'hint hidden';
+            }, 3000);
+        }
+        showHint();
 
         (function() {
             nav.onmouseenter = function() {
@@ -469,13 +463,18 @@
 
             for(var k = footerLinks.length - 1; k >= 0; k--) {
                 var link = footerLinks[k];
+                var timeout;
                 link.onfocus = function() {
+                    clearTimeout(timeout);
                     footer.className = 'focused';
                     content.className = '';
                 };
                 link.onblur = function() {
-                    footer.className = '';
-                    content.className = 'hover-enabled';
+                    clearTimeout(timeout);
+                    timeout = setTimeout(function() {
+                        footer.className = '';
+                        content.className = 'hover-enabled';
+                    });
                 };
             }
         }());
@@ -503,13 +502,26 @@
                         if (document.activeElement) document.activeElement.blur();
                         return false;
                     case 37: // LEFT
+                    case 72: // H
+                        next(mainLinks, false);
+                        break;
                     case 39: // RIGHT
-                        next(mainLinks, evt.keyCode === 39);
+                    case 76: // L
+                        next(mainLinks, true);
                         break;
                     case 38: // UP
-                    case 40: //DOWN
-                        next(footerLinks, evt.keyCode === 40);
+                    case 75: // K
+                        next(footerLinks, false);
                         break;
+                    case 40: //DOWN
+                    case 74: // J
+                        next(footerLinks, true);
+                        break;
+                    case 191:
+                        if (evt.shiftKey) {
+                            showHint();
+                        }
+                        break
                 }
             }
         }());
