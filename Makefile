@@ -14,6 +14,7 @@ all:
 			$(SRC)/shell.png \
 			$(SRC)/snake.png \
 			$(SRC)/paintings.jpg \
+			$(SRC)/peer-calls.png \
 			$(DIST)/
 	@$(MINIFY) -o $(DIST)/index.html $(SRC)/index.html
 
