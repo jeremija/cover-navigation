@@ -45,7 +45,6 @@
         height: 100%;
 
         margin: 0;
-        padding: 0;
 
         font-family: 'Open Sans', sans-serif;
         text-align: center;
@@ -53,72 +52,107 @@
     }
 
     .nav a {
-        position: relative;
-        display: table-cell;
-        height: 100%;
+        text-decoration: none;
+    }
 
-        box-shadow: 3px 0 30px #000;
+    .nav a .button {
+        color: white;
+        border-color: white;
+        -webkit-box-sizing: border-box;
+        -moz-box-sizing: border-box;
+        font-family: "Open Sans",sans-serif;
+        box-sizing: border-box;
+        display: inline-block;
+        height: 38px;
+        padding: 0 15px;
+        border-style: solid;
+        border-width: 1px;
+        opacity: 1;
+        text-align: center;
+        font-size: 12px;
+        text-transform: uppercase;
+        line-height: 35px;
+        white-space: nowrap;
+        border-radius: 3px;
+        transition: all .5s ease;
+        text-decoration: none;
+        margin-top: 2rem;
+    }
 
-        transition: width ease-in 0.3;
-        -webkit-transition: width ease-in 0.3s;
-        -moz-transition: width ease-in 0.3s;
-        -ms-transition: width ease-in 0.3s;
-        -o-transition: width ease-in 0.3s;
-
+    .nav a .bg {
         background-size: cover;
         background-clip: border-box;
-        background-color: #222;
         background-position: center;
         background-repeat: no-repeat;
-        width: 15%;
+        position: absolute;
+        left: 0;
+        right: 0;
+        top: 0;
+        bottom: 0;
+        opacity: 0;
+        z-index: -3;
+        transition: opacity ease-in 0.3s;
+        -webkit-transition: opacity ease-in 0.3s;
+        -moz-transition: opacity ease-in 0.3s;
+        -ms-transition: opacity ease-in 0.3s;
+        -o-transition: opacity ease-in 0.3s;
+    }
 
-        text-align: right;
-        text-decoration: none;
+    .nav a:nth-child(1) .bg {
+        transition: opacity ease-in 0.3s;
+        opacity: 1;
+        z-index: -1;
+    }
 
+    .hover-enabled .nav a:hover .button,
+    .nav a:focus .button {
+        background-color: white;
+        color: black;
+    }
+
+    .hover-enabled .nav a:hover .bg,
+    .nav a:focus .bg{
+        z-index: -1;
+        opacity: 1;
+    }
+
+    .nav a:focus {
         outline: none;
     }
 
-    a.blog {
-        background-position: center left;
-        background-image: url('blog/content/images/2014/Nov/IMGP6120-1.jpg');
-        background-size: normal;
-        z-index: 5;
+    .nav a .button {
+        margin: 2rem 1rem 0;
     }
 
-    a.peer-calls {
+    @media(max-width: 500px) {
+        .nav a .button {
+            margin: 0.5rem 0rem 0;
+        }
+    }
+
+    a.blog .bg {
+        background-position: center;
+        background-image: url('https://steiner.website/blog/images/cover.jpg');
+        background-size: normal;
+    }
+
+    a.peer-calls .bg {
         background-color: #086788;
-        background-position: center top;
+        background-position: center center;
         background-image: url('peer-calls.png');
         background-size: inherit;
-        z-index: 4;
     }
 
-    a.shell {
-        background-position: top left;
+    a.shell .bg {
         background-image: url('shell.png');
+        background-color: #222;
         background-size: inherit;
-        z-index: 3;
     }
 
-    a.snake {
-        background-position: top center;
-        background-size: inherit;
-        background-image: url('snake.png');
-        z-index: 2;
-    }
-
-    a.events {
-        background-position: center left;
-        background-size: inherit;
-        background-image: url('events.jpg');
-        z-index: 1;
-    }
-
-    a.paintings {
+    a.paintings .bg {
         background-position: bottom center;
         background-size: cover;
-        background-image: url('paintings.jpg');
-        z-index: 0;
+        background-image: url('https://svanimir.steiner.website/assets/bg0.jpg');
     }
 
     .nav a div {
@@ -137,48 +171,6 @@
 
         text-decoration: none;
     }
-
-    .hover-enabled .nav a:hover,
-    .nav a:focus {
-        width: 55%;
-    }
-
-    .hover-enabled .nav a:hover div,
-    .nav a:focus div {
-        background-color: rgba(0, 0, 0, 0);
-    }
-
-    .nav a span {
-        white-space: nowrap;
-        position: absolute;
-        right: 0;
-        bottom: 0;
-
-        font-size: 40px;
-        color: #555;
-        padding-right: 1em;
-        padding-bottom: 2em;
-
-        transition: all ease-in 0.3;
-        -webkit-transition: all ease-in 0.3s;
-        -moz-transition: all ease-in 0.3s;
-        -ms-transition: all ease-in 0.3s;
-        -o-transition: all ease-in 0.3s;
-    }
-
-    @media(max-width: 600px) {
-        .nav a span {
-           font-size: 28px;
-           padding-right: 0.5em;
-        }
-    }
-
-    .hover-enabled .nav a:hover span,
-    .nav a:focus span {
-        color: white;
-        text-shadow: 0 0 0.1em white;
-    }
-
 
     .splash {
         background-color: #000;
@@ -346,12 +338,22 @@
 </script>
 <div id="content" class="hover-enabled">
     <div id="nav" class="nav">
-        <a class="blog" href="/blog">&nbsp;<div><span>Blog</span></div></a>
-        <a class="peer-calls" href="https://peercalls.com">&nbsp;<div><span>Peer Calls</span></div></a>
-        <a class="shell" href="/shell">&nbsp;<div><span>Shell</span></div></a>
-        <!--<a class="snake" href="/snake">&nbsp;<div><span>Snake</span></div></a>-->
-        <!-- <a class="events" href="https://events.steiner.website">&nbsp;<div><span>Events</span></div></a> -->
-        <a class="paintings" href="http://svanimir.steiner.website">&nbsp;<div><span>Dad's Paintings</span></div></a>
+        <a class="blog" href="https://steiner.website/blog">
+            <span class="button">Blog</span>
+            <div class="bg"></div>
+        </a>
+        <a class="peer-calls" href="https://peercalls.com">
+            <span class="button">Peer Calls</span>
+            <div class="bg"></div>
+        </a>
+        <a class="shell" href="https://steiner.website/shell">
+            <span class="button">Shell</span>
+            <div class="bg"></div>
+        </a>
+        <a class="paintings" href="http://svanimir.steiner.website">
+            <span class="button">Dad's Paintings</span>
+            <div class="bg"></div>
+        </a>
     </div>
 
     <div id="hint" class="hint">
@@ -414,19 +416,14 @@
 
             for(var i = mainLinks.length - 1; i >= 0; i--) {
                 var link = mainLinks[i];
-                link.onclick = function() {
-                    for(var j = mainLinks.length - 1; j >= 0; j--) {
-                        var lnk = mainLinks[j];
-                        if (lnk === this) continue;
-                        lnk.style.width = '0';
-                    }
-                    this.style.width = '100%';
+                /* link.onclick = function() {
+                    this.children[0].backgroundPosition = 'center top';
                     var href = this.getAttribute('href');
                     setTimeout(function() {
                         window.location.href = href;
                     }, 300);
                     return false;
-                };
+                }; */
                 link.onfocus = function() {
                     content.className = '';
                 };
