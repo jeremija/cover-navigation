@@ -67,7 +67,7 @@
         height:300px;
         border:none;
         background:linear-gradient(to bottom,rgba(0,0,0,.7) 0,rgba(0,0,0,0) 100%);
-        z-index: -1;
+        z-index: -2;
     }
 
     .nav a {
@@ -143,18 +143,10 @@
         bottom: 0;
         opacity: 0;
         visibility: hidden;
-        z-index: -3;
+        z-index: -4;
         transition: opacity ease-in 0.3s, visibility 0.3s ease-in 0.3s;
     }
 
-    .nav a:nth-child(1) .bg {
-        transition: opacity ease-in 0.3s, visibility 0.3s ease-in 0s;
-        opacity: 1;
-        visibility: visible;
-        z-index: -2;
-    }
-
-    /*.hover-enabled .nav a:hover .button,*/
     .nav a:focus .button {
         border-bottom-left-radius: 0;
         border-bottom-right-radius: 0;
@@ -162,11 +154,10 @@
         color: black;
     }
 
-    /*.hover-enabled .nav a:hover .bg,*/
     .nav a:focus .bg {
         transition: opacity ease-in 0.3s, visibility 0.3s ease-in 0s;
         visibility: visible;
-        z-index: -2;
+        z-index: -3;
         opacity: 1;
     }
 
@@ -194,7 +185,7 @@
         .nav a .button,
         .nav a .button-go,
         .nav a:focus .button-go {
-            padding: 0.25rem;
+            padding: 0.25rem 0.5rem;
             line-height: 1.8rem;
         }
     }
@@ -257,7 +248,7 @@
         -moz-transition: all ease-in 0.3s;
         -ms-transition: all ease-in 0.3s;
         -o-transition: all ease-in 0.3s;
-        z-index: 100;
+        z-index: 9;
     }
     .splash.hidden {
         opacity: 0;
