@@ -20,7 +20,7 @@
     @font-face {
       font-family: 'Open Sans';
       font-style: normal;
-      font-weight: 400;
+      font-weight: 300;
       src: local('Open Sans'), local('OpenSans'), url(https://fonts.gstatic.com/s/opensans/v10/cJZKeOuBrn4kERxqtaUH3VtXRa8TVwTICgirnJhmVJw.woff2) format('woff2');
       unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2212, U+2215, U+E0FF, U+EFFD, U+F000;
     }
@@ -56,7 +56,6 @@
 
         font-family: 'Open Sans', sans-serif;
         text-align: center;
-        font-weight: 300;
     }
 
     .nav .overlay {
@@ -75,7 +74,12 @@
         text-decoration: none;
     }
 
-    .nav a .button {
+    .nav a .button-wrapper {
+        position: relative;
+    }
+
+    .nav a .button,
+    .nav a .button-go {
         color: white;
         border-color: white;
         -webkit-box-sizing: border-box;
@@ -96,10 +100,40 @@
         border-radius: 3px;
         transition: all .5s ease;
         text-decoration: none;
+    }
+
+    .nav a .button {
         margin-top: 2rem;
     }
 
+    .nav a .button-go {
+        z-index: -1;
+        position: absolute;
+        margin-top: 0.5rem;
+        top: 0;
+        left: 0;
+        right: 0;
+        color: white;
+        border-color: #f0c808;
+        background-color: #f0c808;
+        text-shadow: 0 0 10px black;
+        box-shadow: 0 0 5px #666;
+        opacity: 0;
+        visibility: hidden;
+        transition: top ease-in 0.3s 0.6s, opacity ease-in 0.3s, visibility 0.3s ease-in 0.3s;
+    }
+
+    .nav a:focus .button-go {
+        top: 100%;
+        line-height: 35px;
+        opacity: 1;
+        visibility: visible;
+        transition: top ease-in 0.3s 0.3s, opacity ease-in 0.3s 0.3s, visibility 0.3s ease-in 0.3s;
+    }
+
+
     .nav a .bg {
+        pointer-events: none;
         background-size: cover;
         background-clip: border-box;
         background-position: center;
@@ -113,28 +147,30 @@
         top: 0;
         bottom: 0;
         opacity: 0;
+        visibility: hidden;
         z-index: -3;
-        transition: opacity ease-in 0.3s;
-        -webkit-transition: opacity ease-in 0.3s;
-        -moz-transition: opacity ease-in 0.3s;
-        -ms-transition: opacity ease-in 0.3s;
-        -o-transition: opacity ease-in 0.3s;
+        transition: opacity ease-in 0.3s, visibility 0.3s ease-in 0.3s;
     }
 
     .nav a:nth-child(1) .bg {
-        transition: opacity ease-in 0.3s;
+        transition: opacity ease-in 0.3s, visibility 0.3s ease-in 0s;
         opacity: 1;
+        visibility: visible;
         z-index: -2;
     }
 
     /*.hover-enabled .nav a:hover .button,*/
     .nav a:focus .button {
+        border-bottom-left-radius: 0;
+        border-bottom-right-radius: 0;
         background-color: white;
         color: black;
     }
 
     /*.hover-enabled .nav a:hover .bg,*/
     .nav a:focus .bg {
+        transition: opacity ease-in 0.3s, visibility 0.3s ease-in 0s;
+        visibility: visible;
         z-index: -2;
         opacity: 1;
     }
@@ -143,12 +179,12 @@
         outline: none;
     }
 
-    .nav a .button {
+    .nav a .button-wrapper {
         margin: 2rem 1rem 0;
     }
 
     @media(max-width: 500px) {
-        .nav a .button {
+        .nav a .button-wrapper {
             margin: 0.5rem 0.25rem 0;
             padding: 0.25rem;
             line-height: 1.8rem;
@@ -163,13 +199,14 @@
 
     a.peer-calls .bg {
         background-color: #086788;
-        background-position: center center;
+        background-position: center top;
         background-image: url('peer-calls.png');
         background-size: inherit;
     }
 
     a.shell .bg {
         background-image: url('shell.png');
+        background-position: left top;
         background-color: #222;
         background-size: inherit;
     }
@@ -221,16 +258,17 @@
 
     footer,
     .hint {
+        text-transform: uppercase;
         font-family: 'Open Sans', sans-serif;
         border-radius: 10px 10px 0 0;
         box-shadow: 0 0 5px #111;
         position: fixed;
         text-align: center;
-        font-size: 10px;
+        font-size: 12px;
         color: #888;
         right: 0;
         left: 50%;
-        width: 140px;
+        width: 160px;
         margin-left: -70px;
         bottom: 0;
         background-color: black;
@@ -283,7 +321,7 @@
         outline: none;
         background-color: #171717;
         background-color: rgba(255, 255, 255, 0.07);
-        text-shadow: 0 0 0.5em white;
+        /* text-shadow: 0 0 0.5em white; */
     }
 
     footer .author {
@@ -312,21 +350,21 @@
         height: 0;
     }
 
-    footer:focus,
+    footer:hover,
     footer.focused {
         outline: none;
         box-shadow: 0 0 5px #111;
     }
 
-    footer:focus .author:before,
-    footer:focus .author:after,
+    footer:hover .author:before,
+    footer:hover .author:after,
     footer.focused .author:before,
     footer.focused .author:after {
         content: '\25be';
     }
 
-    footer:focus .author,
-    footer:focus .additional-info a,
+    footer:hover .author,
+    footer:hover .additional-info a,
     footer.focused .author,
     footer.focused a {
         transition: all ease-in 0.3;
@@ -337,14 +375,9 @@
         color: white;
     }
 
-    footer:focus .author,
-    footer.focused .author {
-        text-shadow: 0 0 0.5em white;
-    }
-
-    footer:focus .additional-info,
+    footer:hover .additional-info,
     footer.focused .additional-info {
-        height: 120px;
+        height: 140px;
         color: white;
     }
 
@@ -368,19 +401,21 @@
 
         </div>
         <a class="blog" href="https://steiner.website/blog">
-            <span class="button">Blog</span>
+            <span class="button-wrapper">
+                <span class="button">Blog</span><span class="button-go">Open</span></span>
             <div class="bg"></div>
         </a>
         <a class="peer-calls" href="https://peercalls.com">
-            <span class="button">Peer Calls</span>
+            <span class="button-wrapper">
+                <span class="button">Peer Calls</span><span class="button-go">Open</span></span>
             <div class="bg"></div>
-        </a>
-        <a class="shell" href="https://steiner.website/shell">
-            <span class="button">Shell</span>
+        </a><a class="shell" href="https://steiner.website/shell">
+            <span class="button-wrapper">
+                <span class="button">Shell</span><span class="button-go">Open</span></span>
             <div class="bg"></div>
-        </a>
-        <a class="paintings" href="http://svanimir.steiner.website">
-            <span class="button">Dad's Paintings</span>
+        </a><a class="paintings" href="http://svanimir.steiner.website">
+            <span class="button-wrapper">
+                <span class="button">Dad's Paintings</span><span class="button-go">Open</span></span>
             <div class="bg"></div>
         </a>
     </div>
@@ -428,11 +463,6 @@
         showHint();
 
         (function() {
-            nav.onmouseenter = function() {
-                content.className = 'hover-enabled';
-                if (document.activeElement) document.activeElement.blur();
-            }
-
             function absorbEvent(event) {
                 var e = event || window.event;
                 e.preventDefault && e.preventDefault();
@@ -440,49 +470,6 @@
                 e.cancelBubble = true;
                 e.returnValue = false
                 return false
-            }
-
-            var touchCoords, touchMoved = false;
-
-            for(var i = mainLinks.length - 1; i >= 0; i--) {
-                var link = mainLinks[i];
-                /* link.onclick = function() {
-                    this.children[0].backgroundPosition = 'center top';
-                    var href = this.getAttribute('href');
-                    setTimeout(function() {
-                        window.location.href = href;
-                    }, 300);
-                    return false;
-                }; */
-                link.onfocus = function() {
-                    content.className = '';
-                };
-                link.onblur = function() {
-                    content.className = 'hover-enabled';
-                };
-                link.ontouchstart = function(event) {
-                    this.focus();
-                    touchMoved = false;
-                    var touch = (event || window.event).touches[0];
-                    touchCoords = {x: touch.pageX, y: touch.pageY};
-                    return absorbEvent(event);
-                };
-                link.ontouchend = function(event) {
-                    if (!touchMoved) this.click();
-                    return absorbEvent(event);
-                };
-                link.ontouchmove = function(event) {
-                    var touch = (event || window.event).touches[0];
-                    if (Math.abs(touchCoords.x - touch.pageX) > 10 ||
-                        Math.abs(touchCoords.y - touch.pageY) > 10)
-                    {
-                        touchMoved = true;
-                    }
-                    return absorbEvent(event);
-                };
-                link.ontouchcancel = function(event) {
-                    return absorbEvent(event);
-                };
             }
 
             for(var k = footerLinks.length - 1; k >= 0; k--) {
@@ -504,6 +491,7 @@
             for(var l = buttons.length - 1; l >= 0; l--) {
                 var button = buttons[l];
                 button.onclick = absorbEvent;
+                // button.ontouchend = absorbEvent;
             }
         }());
 
